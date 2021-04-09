@@ -64,7 +64,7 @@ Describe 'Script Tests' {
         $Data.Version | Should -Be "1.1.1-alpha1"
     }
     It 'copyright static' {
-        $Data = Test-ScriptFileInfo -Path test\Test-Script1\Test-Script1.psd1
+        $Data = Test-ScriptFileInfo -Path test\Test-Script1\Test-Script1.ps1
 
         $Data.Copyright | Should -Be "(c) 2001 John Doe. All rights reserved."
     }
