@@ -10,12 +10,6 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        shell: [pwsh, powershell]
-        exclude:
-          - os: ubuntu-latest
-            shell: powershell
-          - os: macos-latest
-            shell: powershell
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -53,9 +47,9 @@ jobs:
         id: pester
         uses: natescherer/pester-tests-report@feature/code-coverage
         with:
-          report_name: TestResults_${{ runner.os }}_${{ matrix.shell }}
+          report_name: TestResults_${{ runner.os }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          gist_name: ${{ env.BARE_REPOSITORY }}_TestResults_${{ runner.os }}_${{ matrix.shell }}.md
-          gist_badge_label: ${{ runner.os }} ${{ matrix.shell }}
+          gist_name: ${{ env.BARE_REPOSITORY }}_TestResults_${{ runner.os }}.md
+          gist_badge_label: ${{ runner.os }}
           gist_token: ${{ secrets.PESTER_GIST_TOKEN }}
           tests_fail_step: true
