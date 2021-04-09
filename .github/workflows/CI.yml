@@ -1,0 +1,67 @@
+name: CI
+on: [push, workflow_dispatch]
+jobs:
+  Test:
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: pwsh
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        shell: [pwsh, powershell]
+        exclude:
+          - os: ubuntu-latest
+            shell: powershell
+          - os: macos-latest
+            shell: powershell
+    steps:
+      - name: Set Variables
+        run: |
+          "BARE_REPOSITORY=$($env:GITHUB_REPOSITORY.split("/")[1])" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf-8 -Append
+          "BARE_BRANCH=$(($env:GITHUB_REF -split "/",3)[2])" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf-8 -Append
+      - name: echo
+        run: Write-Host $env:BARE_BRANCH
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Modify TestModule1
+        uses: natescherer/update-powershell-metadata-action@${{ env.BARE_BRANCH }}
+        with:
+          path: test\TestModule1\TestModule1.psd1
+          version: 1.1.1
+          copyright: (c) 2001 John Doe. All rights reserved.
+          description: This is a test module.
+          releasenotes: Stuff changed.
+          functionstoexport: Test-Function1,Test-Function2 
+      - name: Modify TestModule2
+        uses: natescherer/update-powershell-metadata-action@${{ env.BARE_BRANCH }}
+        with:
+          path: test\TestModule2
+          version: 1.1.1-alpha1
+          copyright: (c) YYYY John Doe. All rights reserved.
+          functionstoexportpath: test\TestModule2\public
+      - name: Modify Test-Script1
+        uses: natescherer/update-powershell-metadata-action@${{ env.BARE_BRANCH }}
+        with:
+          path: test\Test-Script1\Test-Script1.ps1
+          version: 1.1.1
+          copyright: (c) 2001 John Doe. All rights reserved.
+          description: This is a test script.
+          releasenotes: Stuff changed. 
+      - name: Modify Test-Script2
+        uses: natescherer/update-powershell-metadata-action@${{ env.BARE_BRANCH }}
+        with:
+          path: test\Test-Script2
+          version: 1.1.1-alpha1
+          copyright: (c) YYYY John Doe. All rights reserved.
+      - name: Run Pester Tests
+        id: pester
+        uses: natescherer/pester-tests-report@feature/code-coverage
+        with:
+          report_name: TestResults_${{ runner.os }}_${{ matrix.shell }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          gist_name: ${{ env.BARE_REPOSITORY }}_TestResults_${{ runner.os }}_${{ matrix.shell }}.md
+          gist_badge_label: ${{ runner.os }} ${{ matrix.shell }}
+          gist_token: ${{ secrets.PESTER_GIST_TOKEN }}
+          tests_fail_step: true

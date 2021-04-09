@@ -1,0 +1,2 @@
+function Test-Function2 {
+}
