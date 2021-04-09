@@ -17,16 +17,10 @@ jobs:
           - os: macos-latest
             shell: powershell
     steps:
-      - name: Set Variables
-        run: |
-          "BARE_REPOSITORY=$($env:GITHUB_REPOSITORY.split("/")[1])" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf-8 -Append
-          "BARE_BRANCH=$(($env:GITHUB_REF -split "/",3)[2])" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf-8 -Append
-      - name: echo
-        run: Write-Host $env:BARE_BRANCH
       - name: Checkout
         uses: actions/checkout@v2
       - name: Modify TestModule1
-        uses: natescherer/update-powershell-metadata-action@${{ env.BARE_BRANCH }}
+        uses: natescherer/update-powershell-metadata-action@main
         with:
           path: test\TestModule1\TestModule1.psd1
           version: 1.1.1
@@ -35,14 +29,14 @@ jobs:
           releasenotes: Stuff changed.
           functionstoexport: Test-Function1,Test-Function2 
       - name: Modify TestModule2
-        uses: natescherer/update-powershell-metadata-action@${{ env.BARE_BRANCH }}
+        uses: natescherer/update-powershell-metadata-action@main
         with:
           path: test\TestModule2
           version: 1.1.1-alpha1
           copyright: (c) YYYY John Doe. All rights reserved.
           functionstoexportpath: test\TestModule2\public
       - name: Modify Test-Script1
-        uses: natescherer/update-powershell-metadata-action@${{ env.BARE_BRANCH }}
+        uses: natescherer/update-powershell-metadata-action@main
         with:
           path: test\Test-Script1\Test-Script1.ps1
           version: 1.1.1
@@ -50,7 +44,7 @@ jobs:
           description: This is a test script.
           releasenotes: Stuff changed. 
       - name: Modify Test-Script2
-        uses: natescherer/update-powershell-metadata-action@${{ env.BARE_BRANCH }}
+        uses: natescherer/update-powershell-metadata-action@main
         with:
           path: test\Test-Script2
           version: 1.1.1-alpha1
