@@ -2,6 +2,9 @@ name: Update PowerShell Metadata
 description: |
   Updates the metadata in a PowerShell module manifest or the metadata in the 
   ScriptFileInfo section of a PowerShell script.
+branding:
+  icon: file-plus
+  color: blue
 inputs:
   path:
     description: |
