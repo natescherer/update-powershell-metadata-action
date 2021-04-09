@@ -1,0 +1,134 @@
+name: Update PowerShell Metadata
+description: |
+  Updates the metadata in a PowerShell module manifest or the metadata in the 
+  ScriptFileInfo section of a PowerShell script.
+inputs:
+  path:
+    description: |
+      Path to relative to the root of the project. Can either 
+      be a .psd1 file, a .ps1 file, or a directory. If a directory, the action 
+      will search for a .psd1 file in the root. If none are found, it will then 
+      search for a .ps1 file in the root.
+    required: true
+    version: |
+      A SemVer 1.0.0 compatible version number (must be SermVer 1.0.0 due to 
+      PowerShellGet's limitations). Supports prerelease versions such as 1.0.0-alpha.
+    required: false
+    copyright: |
+      Copyright information. Include YYYY and it will automatically be replaced by the
+      current year.
+    required: false
+    description: |
+      Description of the module/script.
+    required: false
+    releasenotes: |
+      Release notes for the module/script.
+    functionstoexport: |
+      A comma-separated list of functions that should be exported from a module. Does 
+      not apply to scripts.
+    required: false
+    functionstoexportpath: |
+      An alternate input instead of `functionstoexport` that will scan a directory for
+      .ps1 files and export functions matching those file names. Useful if your module
+      design uses dot-sourcing.
+runs:
+  using: composite
+  steps:
+    - name: Validate Inputs
+      run: |
+        if (("${{ inputs.functionstoexport }}") -and ("${{ inputs.functionstoexportpath }}")) {
+          Write-Host "You cannot use both 'functionstoexport' and 'functionstoexportpath' at the same time."
+          throw "Input validation error."
+        }
+      shell: pwsh
+    - name: Update Metadata
+      run: |
+        Write-Host "Starting Action..."
+
+        $FullPath = "${{ github.workspace }}\${{ inputs.path }}"
+
+        if (Test-Path -Path $FullPath -PathType Container) {
+          Write-Host "Input 'path' is a directory."
+
+          . "${{ github.action_path }}\Find-PowerShellFiles.ps1"
+          $ResolvedPath = Find-PowerShellFiles -Path $FullPath
+        } else {
+          Write-Host "Input 'path' is a file."
+          $ResolvedPath = $FullPath
+        }
+
+        Write-Host "Path resolved to: $ResolvedPath"
+
+        Write-Host "Building metadata object..."
+
+        $MetadataSplat = @{ Path = $ResolvedPath}
+
+        $Version = "${{ inputs.version }}"
+        if ($Version) {
+          if ($ResolvedPath -like "*.psd1") {
+            if ($Version -like "*-*") {
+              $MetadataSplat += @{ 
+                ModuleVersion = ($Version -split "-",2)[0]
+                Prerelease = ($Version -split "-",2)[1]
+              }
+            } else {
+              $MetadataSplat += @{ ModuleVersion = $Version }
+            }
+          } else {
+            $MetadataSplat += @{ Version = $Version }
+          }
+        }
+
+        $Copyright = "${{ inputs.copyright }}"
+        if ($Copyright) {
+          if ($Copyright -clike "*YYYY*") {
+            $CurrentYear = Get-Date -Format "yyyy"
+            $Copyright = $Copyright -replace "YYYY", $CurrentYear
+          }
+          $MetadataSplat += @{ Copyright = $Copyright }
+        }
+
+        $Description = "${{ inputs.description }}"
+        if ($Description) {
+          $MetadataSplat += @{ Description = $Description }
+        }
+
+        $ReleaseNotes = "${{ inputs.releasenotes }}"
+        if ($ReleaseNotes) {
+          $MetadataSplat += @{ ReleaseNotes = $ReleaseNotes}
+        }
+
+        $FunctionsToExport = "${{ inputs.functionstoexport }}"
+        if ($FunctionsToExport) {
+          if ($ResolvedPath -like "*.ps1") {
+            throw "Cannot use 'functionstoexport' input for a script."
+          }
+          $FunctionsArray = $FunctionsToExport.split(",")
+          $MetadataSplat += @{ FunctionsToExport = $FunctionsArray}
+        }
+
+        $FunctionsToExportPath = "${{ inputs.functionstoexportpath }}"
+        if ($FunctionsToExportPath) {
+          if ($ResolvedPath -like "*.ps1") {
+            throw "Cannot use 'functionstoexportpath' input for a script."
+          }
+          $FunctionFiles = Get-ChildItem -Path $FullPath -Include "*.ps1" -Recurse
+          $FunctionsToExport = @()
+          foreach ($File in $FunctionFiles) {
+            $FunctionsToExport += [io.path]::GetFileNameWithoutExtension($File.FullName)
+          }
+          $MetadataSplat += @{ FunctionsToExport = $FunctionsToExport}
+        }
+
+        if ($ResolvedPath -like "*.psd1") {
+          Write-Host "Updating module metadata..."
+
+          Update-ModuleManifrest @MetadataSplat
+        } else {
+          Write-Host "Updating ScriptFileInfo..."
+
+          Update-ScriptFileInfo @MetadataSplat
+        }
+
+        Write-Host "Done!"
+      shell: pwsh
