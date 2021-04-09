@@ -31,6 +31,11 @@ inputs:
       An alternate input instead of `functionstoexport` that will scan a directory for
       .ps1 files and export functions matching those file names. Useful if your module
       design uses dot-sourcing.
+outputs:
+  path:
+    description: |
+      The path of the file that was modified by this action
+    value: ${{ steps.update-metadata.outputs.path }}
 runs:
   using: composite
   steps:
@@ -42,6 +47,7 @@ runs:
         }
       shell: pwsh
     - name: Update Metadata
+      id: update-metadata
       run: |
         Write-Host "Starting Action..."
 
@@ -58,6 +64,7 @@ runs:
         }
 
         Write-Host "Path resolved to: $ResolvedPath"
+        echo “::set-output name=path::$ResolvedPath“
 
         Write-Host "Building metadata object..."
 
