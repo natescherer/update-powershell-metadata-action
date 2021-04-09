@@ -89,7 +89,6 @@ runs:
             } else {
               $MetadataSplat += @{ 
                 ModuleVersion = $Version 
-                Prerelease = $null
               }
             }
           } else {
