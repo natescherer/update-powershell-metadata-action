@@ -10,27 +10,35 @@ inputs:
       will search for a .psd1 file in the root. If none are found, it will then 
       search for a .ps1 file in the root.
     required: true
-    version: |
+  version:
+    description: |
       A SemVer 1.0.0 compatible version number (must be SermVer 1.0.0 due to 
       PowerShellGet's limitations). Supports prerelease versions such as 1.0.0-alpha.
     required: false
-    copyright: |
+  copyright:
+    description: |
       Copyright information. Include YYYY and it will automatically be replaced by the
       current year.
     required: false
+  description:
     description: |
       Description of the module/script.
     required: false
-    releasenotes: |
+  releasenotes:
+    description: |
       Release notes for the module/script.
-    functionstoexport: |
+    required: false
+  functionstoexport:
+    description: |
       A comma-separated list of functions that should be exported from a module. Does 
       not apply to scripts.
     required: false
-    functionstoexportpath: |
+  functionstoexportpath:
+    description: |
       An alternate input instead of `functionstoexport` that will scan a directory for
       .ps1 files and export functions matching those file names. Useful if your module
       design uses dot-sourcing.
+    required: false
 outputs:
   path:
     description: |
