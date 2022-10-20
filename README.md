@@ -16,7 +16,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Update Metadata
-        uses: natescherer/update-powershell-metadata-action@v1.0.0
+        uses: natescherer/update-powershell-metadata-action@v2.0.0
         with:
           paths: src\MyModule.psd1
           version: 1.2.3-alpha1
