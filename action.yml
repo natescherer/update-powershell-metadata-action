@@ -80,7 +80,7 @@ runs:
       run: |
         $SafePath = Join-Path $env:GITHUB_ACTION_PATH src steps 3_build_and_update.ps1
         . $SafePath
-            env:
+      env:
         INPUT_PATH: ${{ inputs.path }}
         INPUT_VERSION: ${{ inputs.version }}
         INPUT_COPYRIGHT: ${{ inputs.copyright }}
