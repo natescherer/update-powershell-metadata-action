@@ -28,6 +28,7 @@ jobs:
       - name: Update Changelog
         id: updatechangelog
         run: |
+          Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
           Install-Module ChangelogManagement
           Update-Changelog -Path $env:GITHUB_WORKSPACE/CHANGELOG.md -ReleaseVersion $env:CALCVERSION -LinkMode Automatic -LinkPattern @{FirstRelease = "https://github.com/$env:GITHUB_REPOSITORY/tree/v{CUR}";NormalRelease = "https://github.com/$env:GITHUB_REPOSITORY/compare/v{PREV}..v{CUR}";Unreleased = "https://github.com/$env:GITHUB_REPOSITORY/compare/v{CUR}..HEAD"}
         env:
