@@ -27,12 +27,12 @@ Describe 'Module Tests' {
 
         $Data.Description | Should -Be "This is a test module."
     }
-    It 'releasenotes' {
+    It 'releaseNotes' {
         $Data = Test-ModuleManifest -Path test\TestModule1\TestModule1.psd1
 
         $Data.ReleaseNotes | Should -Be "Stuff changed."
     }
-    It 'functionstoexport' {
+    It 'functionsToExport' {
         $Data = Test-ModuleManifest -Path test\TestModule1\TestModule1.psd1
 
         $ExportedFunctionNames = @()
@@ -41,7 +41,7 @@ Describe 'Module Tests' {
         }
         $ExportedFunctionNames | Should -Be @("Test-Function1","Test-Function2")
     }
-    It 'functionstoexportpath' {
+    It 'functionsToExportPath' {
         $Data = Test-ModuleManifest -Path test\TestModule2\TestModule2.psd1
 
         $ExportedFunctionNames = @()
@@ -79,7 +79,7 @@ Describe 'Script Tests' {
 
         $Data.Description | Should -Be "This is a test script."
     }
-    It 'releasenotes' {
+    It 'releaseNotes' {
         $Data = Test-ScriptFileInfo -Path test\Test-Script1\Test-Script1.ps1
 
         $Data.ReleaseNotes | Should -Be "Stuff changed."

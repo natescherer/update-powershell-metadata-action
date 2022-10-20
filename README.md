@@ -33,9 +33,9 @@ This Action defines the following formal inputs.
 | **`version`** | false | A SemVer 1.0.0 compatible version number (must be SermVer 1.0.0 due to PowerShellGet's limitations). Supports prerelease versions such as 1.0.0-alpha.
 | **`copyright`** | false | Copyright information. Include YYYY and it will automatically be replaced by the current year.
 | **`description`** | false | Description of the module/script.
-| **`releasenotes`** | false | Release notes for the module/script.
-| **`functionstoexport`** | false | A comma-separated list of functions that should be exported from a module. Does not apply to scripts.
-| **`functionstoexportpath`** | false | An alternate input instead of `functionstoexport` that will scan a directory for .ps1 files and export functions matching those file names. Useful if your module design uses dot-sourcing.
+| **`releaseNotes`** | false | Release notes for the module/script.
+| **`functionsToExport`** | false | A comma-separated list of functions that should be exported from a module. Does not apply to scripts.
+| **`functionsToExportPath`** | false | An alternate input instead of `functionsToExport` that will scan a directory for .ps1 files and export functions matching those file names. Useful if your module design uses dot-sourcing.
 
 ### Outputs
 

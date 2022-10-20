@@ -27,18 +27,18 @@ inputs:
     description: |
       Description of the module/script.
     required: false
-  releasenotes:
+  releaseNotes:
     description: |
       Release notes for the module/script.
     required: false
-  functionstoexport:
+  functionsToExport:
     description: |
       A comma-separated list of functions that should be exported from a module. Does 
       not apply to scripts.
     required: false
-  functionstoexportpath:
+  functionsToExportPath:
     description: |
-      An alternate input instead of `functionstoexport` that will scan a directory for
+      An alternate input instead of `functionsToExport` that will scan a directory for
       .ps1 files and export functions matching those file names. Useful if your module
       design uses dot-sourcing.
     required: false
@@ -50,105 +50,34 @@ outputs:
 runs:
   using: composite
   steps:
+    - name: Initialize
+      run: |
+        $SafePath = Join-Path $env:GITHUB_ACTION_PATH src steps 1_init.ps1
+        . $SafePath
+      env:
+        INPUT_PATH: ${{ inputs.path }}
+        INPUT_VERSION: ${{ inputs.version }}
+        INPUT_COPYRIGHT: ${{ inputs.copyright }}
+        INPUT_DESCRIPTION: ${{ inputs.description }}
+        INPUT_RELEASENOTES: ${{ inputs.releaseNotes }}
+        INPUT_FUNCTIONSTOEXPORT: ${{ inputs.functionsToExport }}
+        INPUT_FUNCTIONSTOEXPORTPATH: ${{ inputs.functionsToExportPath }}
+      shell: pwsh
     - name: Validate Inputs
       run: |
-        if (("${{ inputs.functionstoexport }}") -and ("${{ inputs.functionstoexportpath }}")) {
-          Write-Host "You cannot use both 'functionstoexport' and 'functionstoexportpath' at the same time."
-          throw "Input validation error."
-        }
+        $SafePath = Join-Path $env:GITHUB_ACTION_PATH src steps 2_validate_inputs.ps1
+        . $SafePath
+      env:
+        INPUT_PATH: ${{ inputs.path }}
+        INPUT_VERSION: ${{ inputs.version }}
+        INPUT_COPYRIGHT: ${{ inputs.copyright }}
+        INPUT_DESCRIPTION: ${{ inputs.description }}
+        INPUT_RELEASENOTES: ${{ inputs.releaseNotes }}
+        INPUT_FUNCTIONSTOEXPORT: ${{ inputs.functionsToExport }}
+        INPUT_FUNCTIONSTOEXPORTPATH: ${{ inputs.functionsToExportPath }}
       shell: pwsh
     - name: Update Metadata
       id: update-metadata
       run: |
-        Write-Host "Starting Action..."
 
-        $FullPath = "${{ github.workspace }}\${{ inputs.path }}"
-
-        if (Test-Path -Path $FullPath -PathType Container) {
-          Write-Host "Input 'path' is a directory."
-
-          . "${{ github.action_path }}\src\Find-PowerShellFiles.ps1"
-          $ResolvedPath = Find-PowerShellFiles -Path $FullPath
-        } else {
-          Write-Host "Input 'path' is a file."
-          $ResolvedPath = $FullPath
-        }
-
-        Write-Host "Path resolved to: $ResolvedPath"
-        echo "::set-output name=path::$ResolvedPath"
-
-        Write-Host "Building metadata object..."
-
-        $MetadataSplat = @{ Path = $ResolvedPath}
-
-        $Version = "${{ inputs.version }}"
-        if ($Version) {
-          if ($ResolvedPath -like "*.psd1") {
-            if ($Version -like "*-*") {
-              $MetadataSplat += @{ 
-                ModuleVersion = ($Version -split "-",2)[0]
-                Prerelease = ($Version -split "-",2)[1]
-              }
-            } else {
-              $MetadataSplat += @{ 
-                ModuleVersion = $Version 
-              }
-            }
-          } else {
-            $MetadataSplat += @{ Version = $Version }
-          }
-        }
-
-        $Copyright = "${{ inputs.copyright }}"
-        if ($Copyright) {
-          if ($Copyright -clike "*YYYY*") {
-            $CurrentYear = Get-Date -Format "yyyy"
-            $Copyright = $Copyright -replace "YYYY", $CurrentYear
-          }
-          $MetadataSplat += @{ Copyright = $Copyright }
-        }
-
-        $Description = "${{ inputs.description }}"
-        if ($Description) {
-          $MetadataSplat += @{ Description = $Description }
-        }
-
-        $ReleaseNotes = "${{ inputs.releasenotes }}"
-        if ($ReleaseNotes) {
-          $MetadataSplat += @{ ReleaseNotes = $ReleaseNotes}
-        }
-
-        $FunctionsToExport = "${{ inputs.functionstoexport }}"
-        if ($FunctionsToExport) {
-          if ($ResolvedPath -like "*.ps1") {
-            throw "Cannot use 'functionstoexport' input for a script."
-          }
-          $FunctionsArray = $FunctionsToExport.split(",")
-          $MetadataSplat += @{ FunctionsToExport = $FunctionsArray}
-        }
-
-        $FunctionsToExportPath = "${{ inputs.functionstoexportpath }}"
-        if ($FunctionsToExportPath) {
-          if ($ResolvedPath -like "*.ps1") {
-            throw "Cannot use 'functionstoexportpath' input for a script."
-          }
-          $FunctionFiles = Get-ChildItem -Path $FullPath -Include "*.ps1" -Recurse
-          $FunctionsToExport = @()
-          foreach ($File in $FunctionFiles) {
-            $FunctionsToExport += [io.path]::GetFileNameWithoutExtension($File.FullName)
-          }
-          $MetadataSplat += @{ FunctionsToExport = $FunctionsToExport}
-        }
-
-        if ($ResolvedPath -like "*.psd1") {
-          Write-Host "Updating module metadata..."
-
-          Update-ModuleManifest @MetadataSplat
-        } else {
-          Write-Host "Updating ScriptFileInfo..."
-
-          Update-ScriptFileInfo @MetadataSplat
-        }
-
-        Write-Host "Done!"
       shell: pwsh
