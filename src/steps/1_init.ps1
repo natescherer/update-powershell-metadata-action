@@ -19,6 +19,6 @@ Write-Host "Path resolved to: $ResolvedPath"
 
 Write-Host "Installing PowerShellGet 3..."
 # Ensuring PowerShellGet stable is latest version
-Install-Module -Name PowerShellGet -Force -AllowClobber -Scope AllUsers
+Install-Module -Name PowerShellGet -Force -AllowClobber
 # Installing PowerShellGet 3 Prerelease
-Install-Module -Name PowerShellGet -Force -AllowPrerelease -Scope AllUsers
+Install-Module -Name PowerShellGet -Force -AllowPrerelease

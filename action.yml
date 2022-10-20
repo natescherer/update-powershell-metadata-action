@@ -77,7 +77,15 @@ runs:
         INPUT_FUNCTIONSTOEXPORTPATH: ${{ inputs.functionsToExportPath }}
       shell: pwsh
     - name: Update Metadata
-      id: update-metadata
       run: |
-
+        $SafePath = Join-Path $env:GITHUB_ACTION_PATH src steps 3_build_and_update.ps1
+        . $SafePath
+            env:
+        INPUT_PATH: ${{ inputs.path }}
+        INPUT_VERSION: ${{ inputs.version }}
+        INPUT_COPYRIGHT: ${{ inputs.copyright }}
+        INPUT_DESCRIPTION: ${{ inputs.description }}
+        INPUT_RELEASENOTES: ${{ inputs.releaseNotes }}
+        INPUT_FUNCTIONSTOEXPORT: ${{ inputs.functionsToExport }}
+        INPUT_FUNCTIONSTOEXPORTPATH: ${{ inputs.functionsToExportPath }}
       shell: pwsh
