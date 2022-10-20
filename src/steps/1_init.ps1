@@ -22,5 +22,5 @@ Write-Host "Installing PowerShellGet 3..."
 Install-Module -Name PowerShellGet -Force -AllowClobber
 # Installing PowerShellGet 3 Prerelease
 ## Pinning to specific version of PowerShellGet until stable v3 is released
-## Remember to update uninstall when this is updated
-Install-Module -Name PowerShellGet -RequiredVersion 3.0.17-beta17 -AllowPrerelease -Force
+## This is Preview 16 to limit bad interaction with publish-powershell-action
+Install-Module -Name PowerShellGet -RequiredVersion 3.0.16-beta16 -AllowPrerelease -Force

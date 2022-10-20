@@ -57,7 +57,4 @@ if ($env:RESOLVEDPATH -like "*.psd1") {
     Update-ScriptFileInfo @MetadataSplat
 }
 
-# Temporary until PowerShellGet 3 Stable is released, to prevent possible bad interactions with other modules
-Uninstall-Module -Name PowerShellGet -RequiredVersion 3.0.17-beta17 -AllowPrerelease -Force
-
 Write-Host "Done!"
