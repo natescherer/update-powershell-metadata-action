@@ -14,8 +14,8 @@ if (Test-Path -Path $FullPath -PathType Container) {
 }
 
 Write-Host "Path resolved to: $ResolvedPath"
-Write-Host "::set-output name=path::$ResolvedPath"
-Write-Host "::set-env name=RESOLVEDPATH::$ResolvedPath"
+"RESOLVEDPATH=$ResolvedPath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf-8 -Append
+"path=$ResolvedPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf-8 -Append
 
 Write-Host "Installing PowerShellGet 3..."
 # Ensuring PowerShellGet stable is latest version
