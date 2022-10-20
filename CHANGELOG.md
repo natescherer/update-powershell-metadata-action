@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Recoded to be more platform-agnostic
 
+### Security
+- Output and environment variables updated to use environment files
+
 ## [1.0.0] - 2021-04-09
 ### Added
 - Initial release
