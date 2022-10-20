@@ -5,7 +5,7 @@ $FullPath = Join-Path $env:GITHUB_WORKSPACE $env:INPUT_PATH
 if (Test-Path -Path $FullPath -PathType Container) {
     Write-Host "Input 'path' is a directory."
 
-    $FindPowerShellFilesPath = Join-Path $env:GITHUB_ACTION_PATH src Find-PowerShellFiles.ps1
+    $FindPowerShellFilesPath = Join-Path $env:GITHUB_ACTION_PATH src private Find-PowerShellFiles.ps1
     . $FindPowerShellFilesPath
     $ResolvedPath = Find-PowerShellFiles -Path $FullPath
 } else {
