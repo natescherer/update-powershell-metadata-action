@@ -20,9 +20,9 @@ if ($env:INPUT_VERSION) {
 if ($env:INPUT_COPYRIGHT) {
     if ($env:INPUT_COPYRIGHT -clike "*YYYY*") {
         $CurrentYear = Get-Date -Format "yyyy"
-        $ResolvedCopyright = $env:INPUT_COPYRIGHT -replace "YYYY", $CurrentYear
+        $env:INPUT_COPYRIGHT = $env:INPUT_COPYRIGHT -replace "YYYY", $CurrentYear
     }
-    $MetadataSplat += @{ Copyright = $ResolvedCopyright }
+    $MetadataSplat += @{ Copyright = $env:INPUT_COPYRIGHT }
 }
 
 if ($env:INPUT_DESCRIPTION) {
