@@ -39,7 +39,7 @@ if ($env:INPUT_FUNCTIONSTOEXPORT) {
 }
 
 if ($env:INPUT_FUNCTIONSTOEXPORTPATH) {
-    $FunctionFiles = Get-ChildItem -Path $env:RESOLVEDPATH -Include "*.ps1" -Recurse
+    $FunctionFiles = Get-ChildItem -Path $env:INPUT_FUNCTIONSTOEXPORTPATH -Include "*.ps1" -Recurse
     $FunctionsToExport = @()
     foreach ($File in $FunctionFiles) {
         $FunctionsToExport += [io.path]::GetFileNameWithoutExtension($File.FullName)
