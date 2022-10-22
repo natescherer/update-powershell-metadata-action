@@ -21,7 +21,7 @@ jobs:
         run: |
           "BARE_REPOSITORY=$($env:GITHUB_REPOSITORY.split("/")[1])" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf-8 -Append
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Modify TestModule1
         uses: ./
         with:
@@ -39,9 +39,9 @@ jobs:
           copyright: (c) YYYY John Doe. All rights reserved.
           functionsToExportPath: test\TestModule2\public
       - name: Modify Test-Script1
-        uses: natescherer/update-powershell-metadata-action@main
+        uses: ./
         with:
-          path: ./
+          path: test\Test-Script1\Test-Script1.ps1
           version: 1.1.1
           copyright: (c) 2001 John Doe. All rights reserved.
           description: This is a test script.
