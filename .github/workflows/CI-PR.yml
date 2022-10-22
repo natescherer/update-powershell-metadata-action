@@ -1,11 +1,5 @@
-name: CI
-on:
-  push:
-    branches:
-      - main
-      - bugfix/**
-      - feature/**
-  workflow_dispatch:
+name: CI-PR
+on: pull_request
 jobs:
   Test:
     runs-on: ${{ matrix.os }}
@@ -56,9 +50,7 @@ jobs:
         id: pester
         uses: zyborg/pester-tests-report@v1
         with:
-          report_name: TestResults_${{ runner.os }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          gist_name: ${{ env.BARE_REPOSITORY }}_TestResults_${{ runner.os }}.md
-          gist_badge_label: ${{ runner.os }}
-          gist_token: ${{ secrets.PESTER_GIST_TOKEN }}
+          skip_check_run: true
           tests_fail_step: true
+          report_name: TestResults_${{ runner.os }}
