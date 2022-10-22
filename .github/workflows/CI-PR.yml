@@ -26,14 +26,14 @@ jobs:
           releaseNotes: Stuff changed.
           functionsToExport: Test-Function1,Test-Function2 
       - name: Modify TestModule2
-        uses: natescherer/update-powershell-metadata-action@main
+        uses: ./
         with:
           path: test\TestModule2
           version: 1.1.1-alpha1
           copyright: (c) YYYY John Doe. All rights reserved.
           functionsToExportPath: test\TestModule2\public
       - name: Modify Test-Script1
-        uses: natescherer/update-powershell-metadata-action@main
+        uses: ./
         with:
           path: test\Test-Script1\Test-Script1.ps1
           version: 1.1.1
@@ -41,7 +41,7 @@ jobs:
           description: This is a test script.
           releaseNotes: Stuff changed. 
       - name: Modify Test-Script2
-        uses: natescherer/update-powershell-metadata-action@main
+        uses: ./
         with:
           path: test\Test-Script2
           version: 1.1.1-alpha1

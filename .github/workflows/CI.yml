@@ -23,7 +23,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Modify TestModule1
-        uses: natescherer/update-powershell-metadata-action@main
+        uses: ./
         with:
           path: test\TestModule1\TestModule1.psd1
           version: 1.1.1
@@ -32,7 +32,7 @@ jobs:
           releaseNotes: Stuff changed.
           functionsToExport: Test-Function1,Test-Function2 
       - name: Modify TestModule2
-        uses: natescherer/update-powershell-metadata-action@main
+        uses: ./
         with:
           path: test\TestModule2
           version: 1.1.1-alpha1
@@ -41,13 +41,13 @@ jobs:
       - name: Modify Test-Script1
         uses: natescherer/update-powershell-metadata-action@main
         with:
-          path: test\Test-Script1\Test-Script1.ps1
+          path: ./
           version: 1.1.1
           copyright: (c) 2001 John Doe. All rights reserved.
           description: This is a test script.
           releaseNotes: Stuff changed. 
       - name: Modify Test-Script2
-        uses: natescherer/update-powershell-metadata-action@main
+        uses: ./
         with:
           path: test\Test-Script2
           version: 1.1.1-alpha1
