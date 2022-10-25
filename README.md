@@ -6,7 +6,6 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!--START_SECTION:description-->
-A GitHub Action to update metadata in PowerShell module manifests and ScriptFileInfo in PowerShell scripts.
 <!--END_SECTION:description-->
 
 This action is designed to let you quickly update the release-related metadata in a manifest or script file as part of a release workflow.
@@ -56,13 +55,9 @@ This Action defines the following formal outputs.
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
 
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+This project follows the [all-contributors](https://allcontributors.org) specification.
+Contributions of any kind are welcome!
 
 ## License
 
