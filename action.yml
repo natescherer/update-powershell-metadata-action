@@ -1,7 +1,5 @@
 name: Update PowerShell Metadata
-description: |
-  Updates the metadata in a PowerShell module manifest or the metadata in the 
-  ScriptFileInfo section of a PowerShell script.
+description: A GitHub Action to update metadata in PowerShell modules and scripts.
 branding:
   icon: file-plus
   color: blue
