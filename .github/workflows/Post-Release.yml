@@ -1,8 +1,9 @@
 name: Actions Automatic Post-Release
 
 on:
-  release:
-    types: [published, edited]
+  workflow_run:
+    workflows: [Release]
+    types: [completed]
 
 jobs:
   actions-tagger:
