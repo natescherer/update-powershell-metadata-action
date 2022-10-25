@@ -32,6 +32,7 @@ jobs:
         with:
           section: description
           value: ${{ env.REPOSITORY_DESCRIPTION }}
+          branch: main
       - name: Update README Inputs/Outputs
         uses: mdvorak/update-action-readme@v1
       - uses: actions/upload-artifact@v3
