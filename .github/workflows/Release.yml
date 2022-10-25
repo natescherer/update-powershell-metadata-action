@@ -50,12 +50,17 @@ jobs:
         with:
           name: ${{ runner.os }}
           path: ${{ github.workspace }}
-      # - name: Update Changelog
-      #   id: changelog
-      #   uses: natescherer/changelog-management-action@main
-      #   with:
-      #     mode: release
-      #     releaseversion: ${{ steps.gitversion.outputs.SemVer }}
+      - name: Update Changelog
+        id: changelog
+        uses: natescherer/changelog-management-action@main
+        with:
+          mode: release
+          releaseversion: ${{ steps.gitversion.outputs.SemVer }}
+      - name: Log
+        run: Write-Host "Hello"
+        env:
+          RELEASE_HEADER: ${{ steps.metadata.outputs.releaseheader }}
+          RELEASE_NOTES: ${{ steps.changelog.outputs.releasenotes }}
       # - name: Push Tag
       #   id: tag_version
       #   uses: mathieudutour/github-tag-action@v6.0
@@ -65,8 +70,8 @@ jobs:
       # - name: Create Pull Request
       #   uses: peter-evans/create-pull-request@v4
       #   with:
-      #     commit-message: Update changelog for release
-      #     title: Changelog update by create-pull-request action
+      #     commit-message: Update README and CHANGELOG
+      #     title: Update README and CHANGELOG
       #     delete-branch: true
       # - name: Create Release
       #   uses: softprops/action-gh-release@v1
