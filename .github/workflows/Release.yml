@@ -23,16 +23,6 @@ jobs:
       - name: Determine Version
         id: gitversion
         uses: gittools/actions/gitversion/execute@v0.9.14
-      - name: Github Repository Metadata
-        uses: varunsridharan/action-repository-meta@2.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Update README Description
-        uses: VisualBean/reactive-readme@v1
-        with:
-          section: description
-          value: ${{ env.REPOSITORY_DESCRIPTION }}
-          branch: main
       - name: Update README Inputs/Outputs
         uses: mdvorak/update-action-readme@v1
       - uses: actions/upload-artifact@v3

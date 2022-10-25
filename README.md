@@ -5,8 +5,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-<!--START_SECTION:description-->
-<!--END_SECTION:description-->
+A GitHub Action to update metadata in PowerShell modules and scripts.
 
 This action is designed to let you quickly update the release-related metadata in a manifest or script file as part of a release workflow.
 
