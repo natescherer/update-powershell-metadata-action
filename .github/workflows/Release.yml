@@ -31,11 +31,21 @@ jobs:
         with:
           mode: release
           releaseVersion: ${{ steps.gitversion.outputs.SemVer }}
-      - name: Push Tag
+      - name: Push SemVer Tag
         uses: mathieudutour/github-tag-action@v6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           custom_tag: ${{ steps.gitversion.outputs.SemVer }}
+      - name: Push Major Tag
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: ${{ steps.gitversion.outputs.Major }}
+      - name: Push Major.Minor Tag
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: ${{ steps.gitversion.outputs.Major }}.${{ steps.gitversion.outputs.Minor }}
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:

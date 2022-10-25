@@ -16,7 +16,7 @@ It is tested and runs on `windows-latest`, `ubuntu-latest`, and `macos-latest`.
 ```yaml
     steps:
       - name: Update Metadata
-        uses: natescherer/update-powershell-metadata-action@v2.0.0
+        uses: natescherer/update-powershell-metadata-action@v2
         with:
           path: src\MyModule.psd1
           version: 1.2.3-alpha1
