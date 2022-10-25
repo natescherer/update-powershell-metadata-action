@@ -28,6 +28,17 @@ It is tested and runs on `windows-latest`, `ubuntu-latest`, and `macos-latest`.
 This Action defines the following formal inputs.
 
 <!--(inputs-start)-->
+
+| Name  | Required | Default | Description |
+| :---: | :------: | :-----: | ----------- |
+| `path` | true |  | Path to relative to the root of the project. Can either be a .psd1 file, a .ps1 file, or a directory. If a directory, the action will search for a .psd1 file in the root. If none are found, it will then search for a .ps1 file in the root. |
+| `version` | false |  | A SemVer 1.0.0 compatible version number (must be SermVer 1.0.0 due to PowerShellGet's limitations). Supports prerelease versions such as 1.0.0-alpha. |
+| `copyright` | false |  | Copyright information. Include YYYY and it will automatically be replaced by the current year. |
+| `description` | false |  | Description of the module/script. |
+| `releaseNotes` | false |  | Release notes for the module/script. |
+| `functionsToExport` | false |  | A comma-separated list of functions that should be exported from a module. Does not apply to scripts. |
+| `functionsToExportPath` | false |  | An alternate input instead of `functionsToExport` that will scan a directory for .ps1 files and export functions matching those file names. Useful if your module design uses dot-sourcing. |
+
 <!--(inputs-end)-->
 
 ### Outputs
@@ -35,6 +46,11 @@ This Action defines the following formal inputs.
 This Action defines the following formal outputs.
 
 <!--(outputs-start)-->
+
+| Name  | Description |
+| :---: | ----------- |
+| `path` | The fully-qualified path of the file that was modified by this action. |
+
 <!--(outputs-end)-->
 
 ## Contributors
