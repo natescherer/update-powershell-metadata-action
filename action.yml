@@ -7,45 +7,29 @@ branding:
   color: blue
 inputs:
   path:
-    description: |
-      Path to relative to the root of the project. Can either 
-      be a .psd1 file, a .ps1 file, or a directory. If a directory, the action 
-      will search for a .psd1 file in the root. If none are found, it will then 
-      search for a .ps1 file in the root.
+    description: Path to relative to the root of the project. Can either be a .psd1 file, a .ps1 file, or a directory. If a directory, the action will search for a .psd1 file in the root. If none are found, it will then search for a .ps1 file in the root.
     required: true
   version:
-    description: |
-      A SemVer 1.0.0 compatible version number (must be SermVer 1.0.0 due to 
-      PowerShellGet's limitations). Supports prerelease versions such as 1.0.0-alpha.
+    description: A SemVer 1.0.0 compatible version number (must be SermVer 1.0.0 due to PowerShellGet's limitations). Supports prerelease versions such as 1.0.0-alpha.
     required: false
   copyright:
-    description: |
-      Copyright information. Include YYYY and it will automatically be replaced by the
-      current year.
+    description: Copyright information. Include YYYY and it will automatically be replaced by the current year.
     required: false
   description:
-    description: |
-      Description of the module/script.
+    description: Description of the module/script.
     required: false
   releaseNotes:
-    description: |
-      Release notes for the module/script.
+    description: Release notes for the module/script.
     required: false
   functionsToExport:
-    description: |
-      A comma-separated list of functions that should be exported from a module. Does 
-      not apply to scripts.
+    description: A comma-separated list of functions that should be exported from a module. Does not apply to scripts.
     required: false
   functionsToExportPath:
-    description: |
-      An alternate input instead of `functionsToExport` that will scan a directory for
-      .ps1 files and export functions matching those file names. Useful if your module
-      design uses dot-sourcing.
+    description: An alternate input instead of `functionsToExport` that will scan a directory for .ps1 files and export functions matching those file names. Useful if your module design uses dot-sourcing.
     required: false
 outputs:
   path:
-    description: |
-      The fully-qualified path of the file that was modified by this action.
+    description: The fully-qualified path of the file that was modified by this action.
     value: ${{ steps.update-metadata.outputs.path }}
 runs:
   using: composite
