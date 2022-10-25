@@ -1,4 +1,7 @@
 # Update PowerShell Metadata GitHub Action
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![PowerShell on Windows](https://gist.github.com/natescherer/fc69436698dbb94367e2409a64dc9a45/raw/3bce49a7d468384e6a20d92b0348642f0318324c/update-powershell-metadata-action_TestResults_Windows.md_badge.svg)](https://gist.github.com/natescherer/fc69436698dbb94367e2409a64dc9a45) [![PowerShell on Linux](https://gist.github.com/natescherer/da4b1387fee9b8d12bc42aa8638c73ba/raw/26199dbb6555fec3b93eb3a812a39c116d713ac9/update-powershell-metadata-action_TestResults_Linux.md_badge.svg)](https://gist.github.com/natescherer/da4b1387fee9b8d12bc42aa8638c73ba) [![PowerShell on macOS](https://gist.github.com/natescherer/5bd3302f98ead9f8314d55540cdd0862/raw/570b9a09ab12d5cb7ef3bdd19d398e666ecd5362/update-powershell-metadata-action_TestResults_macOS.md_badge.svg)](https://gist.github.com/natescherer/5bd3302f98ead9f8314d55540cdd0862)
 
@@ -39,6 +42,20 @@ This Action defines the following formal outputs.
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://www.linkedin.com/in/natescherer01/"><img src="https://avatars.githubusercontent.com/u/376408?v=4?s=100" width="100px;" alt="Nate Scherer"/><br /><sub><b>Nate Scherer</b></sub></a><br /><a href="https://github.com/natescherer/update-powershell-metadata-action/commits?author=natescherer" title="Code">💻</a> <a href="https://github.com/natescherer/update-powershell-metadata-action/commits?author=natescherer" title="Documentation">📖</a> <a href="#infra-natescherer" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 
