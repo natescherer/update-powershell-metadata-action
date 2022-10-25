@@ -31,34 +31,28 @@ jobs:
         with:
           mode: release
           releaseversion: ${{ steps.gitversion.outputs.SemVer }}
-      - name: Log
-        run: Write-Host "Hello"
-        env:
-          RELEASE_HEADER: ${{ github.event.inputs.ReleaseHeader}}
-          RELEASE_NOTES: ${{ steps.changelog.outputs.releasenotes }}
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ runner.os }}
           path: ${{ github.workspace }}
-      # - name: Push Tag
-      #   id: tag_version
-      #   uses: mathieudutour/github-tag-action@v6.0
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     custom_tag: ${{ steps.gitversion.outputs.SemVer }}
-      # - name: Create Pull Request
-      #   uses: peter-evans/create-pull-request@v4
-      #   with:
-      #     commit-message: Update README and CHANGELOG
-      #     title: Update README and CHANGELOG
-      #     delete-branch: true
-      # - name: Create Release
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     body: |
-      #       # Release v${{ steps.gitversion.outputs.MajorMinorPatch }}
-      #       ${{ steps.metadata.outputs.releaseheader }}
+      - name: Push Tag
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: ${{ steps.gitversion.outputs.SemVer }}
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          commit-message: Update README and CHANGELOG
+          title: Update README and CHANGELOG
+          delete-branch: true
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: v${{ steps.gitversion.outputs.SemVer }}
+          body: |
+            # Release v${{ steps.gitversion.outputs.SemVer }}
+            ${{ github.event.inputs.ReleaseHeader}}
 
-      #       ## Changes
-      #       ${{ steps.changelog.outputs.releasenotes }}
-      #     draft: true
+            ## Changes
+            ${{ steps.changelog.outputs.releasenotes }}
