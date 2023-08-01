@@ -50,11 +50,11 @@ if ($env:INPUT_FUNCTIONSTOEXPORTPATH) {
 if ($env:RESOLVEDPATH -like "*.psd1") {
     Write-Host "Updating module metadata..."
 
-    Update-ModuleManifest @MetadataSplat
+    Update-PSModuleManifest @MetadataSplat
 } else {
     Write-Host "Updating ScriptFileInfo..."
 
-    Update-ScriptFileInfo @MetadataSplat
+    Update-PSScriptFileInfo @MetadataSplat
 }
 
 Write-Host "Done!"
