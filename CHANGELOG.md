@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
+- Test structure modernized
 - Action pinned to PSResourceGet 0.5.23-beta23
 
 ## [2.0.2] - 2022-10-25
