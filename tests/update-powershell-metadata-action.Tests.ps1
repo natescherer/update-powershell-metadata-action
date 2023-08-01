@@ -54,7 +54,7 @@ Describe 'Module Tests' {
 }
 
 Describe 'Script Tests' {
-    $Script1Path = Join-Path "tests" "Test-Script1" "Test-Script.ps1"
+    $Script1Path = Join-Path "tests" "Test-Script1" "Test-Script1.ps1"
     $Script2Path = Join-Path "tests" "Test-Script2" "Test-Script2.ps1"
     Write-Host "Script1 Contents"
     Write-Host $(Get-Content $Script1Path)
