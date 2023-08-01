@@ -62,32 +62,32 @@ Describe 'Script Tests' {
     It 'version' {
         $Data = Test-PSScriptFileInfo -Path test\Test-Script1\Test-Script1.ps1
 
-        $Data.Version | Should -Be "1.1.1"
+        $Data.ScriptMetadataComment.Version | Should -Be "1.1.1"
     }
     It 'version with prerelease' {
         $Data = Test-PSScriptFileInfo -Path test\Test-Script2\Test-Script2.ps1
 
-        $Data.Version | Should -Be "1.1.1-alpha1"
+        $Data.ScriptMetadataComment.Version | Should -Be "1.1.1-alpha1"
     }
     It 'copyright static' {
         $Data = Test-PSScriptFileInfo -Path test\Test-Script1\Test-Script1.ps1
 
-        $Data.Copyright | Should -Be "(c) 2001 John Doe. All rights reserved."
+        $Data.ScriptMetadataComment.Copyright | Should -Be "(c) 2001 John Doe. All rights reserved."
     }
     It 'copyright with YYYY' {
         $Data = Test-PSScriptFileInfo -Path test\Test-Script2\Test-Script2.ps1
 
         $CurrentYear = Get-Date -Format "yyyy"
-        $Data.Copyright | Should -Be "(c) $CurrentYear John Doe. All rights reserved." 
+        $Data.ScriptMetadataComment.Copyright | Should -Be "(c) $CurrentYear John Doe. All rights reserved." 
     }
     It 'description' {
         $Data = Test-PSScriptFileInfo -Path test\Test-Script1\Test-Script1.ps1
 
-        $Data.Description | Should -Be "This is a test script."
+        $Data.ScriptHelpComment.Description | Should -Be "This is a test script."
     }
     It 'releaseNotes' {
         $Data = Test-PSScriptFileInfo -Path test\Test-Script1\Test-Script1.ps1
 
-        $Data.ReleaseNotes | Should -Be "Stuff changed."
+        $Data.ScriptMetadataComment.ReleaseNotes | Should -Be "Stuff changed."
     }
 }
