@@ -1,6 +1,6 @@
 Describe 'Module Tests' {
-    $Module1Path = Join-Path $env:GITHUB_WORKSPACE "tests" "TestModule1" "TestModule1.psd1"
-    $Module2Path = Join-Path $env:GITHUB_WORKSPACE "tests" "TestModule2" "TestModule2.psd1"
+    $Module1Path = Join-Path "tests" "TestModule1" "TestModule1.psd1"
+    $Module2Path = Join-Path "tests" "TestModule2" "TestModule2.psd1"
     It 'version' {
         $Data = Test-ModuleManifest -Path $Module1Path
 
@@ -54,8 +54,8 @@ Describe 'Module Tests' {
 }
 
 Describe 'Script Tests' {
-    $Script1Path = Join-Path $env:GITHUB_WORKSPACE "tests" "Test-Script1" "Test-Script.ps1"
-    $Script2Path = Join-Path $env:GITHUB_WORKSPACE "tests" "Test-Script2" "Test-Script2.ps1"
+    $Script1Path = Join-Path "tests" "Test-Script1" "Test-Script.ps1"
+    $Script2Path = Join-Path "tests" "Test-Script2" "Test-Script2.ps1"
     Write-Host "Script1 Contents"
     Write-Host $(Get-Content $Script1Path)
     Write-Host ""
