@@ -63,7 +63,8 @@ Describe 'Script Tests' {
 
         Write-Host "Script1Info"
         $Data = Test-PSScriptFileInfo -Path $Script1Path
-        Write-Host $(ConvertTo-Json $Data -Depth 100)
+        $JsonData = ConvertTo-Json $Data -Depth 100
+        Write-Host $JsonData
     }
 
     It 'version' {
