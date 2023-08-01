@@ -1,5 +1,19 @@
 Write-Host "Starting Action..."
 
+$PsrgPinnedVerShort = "0.5.23"
+$PsrgPinnedVer = "0.5.23-beta23"
+
+Write-Host -Object "Ensuring PowerShellGet 2.2.5 is installed..."
+# Ensuring PowerShellGet stable is at least version 2.2.5
+$PowerShellGetMetadata = Get-Module -Name PowerShellGet
+if ($PowerShellGetMetadata.Version -ge "2.2.5") {
+    Write-Host -Object "Updating PowerShellGet to 2.2.5..."
+    Install-Module -Name PowerShellGet -Force -AllowClobber
+}
+else {
+    Write-Host -Object "PowerShellGet is up-to-date."
+}
+
 $FullPath = Join-Path $env:GITHUB_WORKSPACE $env:INPUT_PATH
 
 if (Test-Path -Path $FullPath -PathType Container) {
@@ -16,11 +30,3 @@ if (Test-Path -Path $FullPath -PathType Container) {
 Write-Host "Path resolved to: $ResolvedPath"
 "RESOLVEDPATH=$ResolvedPath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf-8 -Append
 "path=$ResolvedPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf-8 -Append
-
-Write-Host "Installing PowerShellGet 3..."
-# Ensuring PowerShellGet stable is latest version
-Install-Module -Name PowerShellGet -Force -AllowClobber
-# Installing PowerShellGet 3 Prerelease
-## Pinning to specific version of PowerShellGet until stable v3 is released
-## This is Preview 16 to limit bad interaction with publish-powershell-action
-Install-Module -Name PowerShellGet -RequiredVersion 3.0.16-beta16 -AllowPrerelease -Force
