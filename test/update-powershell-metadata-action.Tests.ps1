@@ -53,6 +53,12 @@ Describe 'Module Tests' {
 }
 
 Describe 'Script Tests' {
+    Write-Host "Script1 Contents"
+    Write-Host $(Get-Content test\Test-Script1\Test-Script1.ps1)
+    Write-Host ""
+    Write-Host "Script2 Contents"
+    Write-Host $(Get-Content test\Test-Script2\Test-Script2.ps1)
+
     It 'version' {
         $Data = Test-PSScriptFileInfo -Path test\Test-Script1\Test-Script1.ps1
 
