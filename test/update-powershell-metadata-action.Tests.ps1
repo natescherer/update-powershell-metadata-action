@@ -54,33 +54,33 @@ Describe 'Module Tests' {
 
 Describe 'Script Tests' {
     It 'version' {
-        $Data = Test-ScriptFileInfo -Path test\Test-Script1\Test-Script1.ps1
+        $Data = Test-PSScriptFileInfo -Path test\Test-Script1\Test-Script1.ps1
 
         $Data.Version | Should -Be "1.1.1"
     }
     It 'version with prerelease' {
-        $Data = Test-ScriptFileInfo -Path test\Test-Script2\Test-Script2.ps1
+        $Data = Test-PSScriptFileInfo -Path test\Test-Script2\Test-Script2.ps1
 
         $Data.Version | Should -Be "1.1.1-alpha1"
     }
     It 'copyright static' {
-        $Data = Test-ScriptFileInfo -Path test\Test-Script1\Test-Script1.ps1
+        $Data = Test-PSScriptFileInfo -Path test\Test-Script1\Test-Script1.ps1
 
         $Data.Copyright | Should -Be "(c) 2001 John Doe. All rights reserved."
     }
     It 'copyright with YYYY' {
-        $Data = Test-ScriptFileInfo -Path test\Test-Script2\Test-Script2.ps1
+        $Data = Test-PSScriptFileInfo -Path test\Test-Script2\Test-Script2.ps1
 
         $CurrentYear = Get-Date -Format "yyyy"
         $Data.Copyright | Should -Be "(c) $CurrentYear John Doe. All rights reserved." 
     }
     It 'description' {
-        $Data = Test-ScriptFileInfo -Path test\Test-Script1\Test-Script1.ps1
+        $Data = Test-PSScriptFileInfo -Path test\Test-Script1\Test-Script1.ps1
 
         $Data.Description | Should -Be "This is a test script."
     }
     It 'releaseNotes' {
-        $Data = Test-ScriptFileInfo -Path test\Test-Script1\Test-Script1.ps1
+        $Data = Test-PSScriptFileInfo -Path test\Test-Script1\Test-Script1.ps1
 
         $Data.ReleaseNotes | Should -Be "Stuff changed."
     }
