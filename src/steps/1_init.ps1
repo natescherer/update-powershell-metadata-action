@@ -14,6 +14,26 @@ else {
     Write-Host -Object "PowerShellGet is up-to-date."
 }
 
+# Ensuring Microsoft.PowerShell.PSResourceGet is installed
+$PSResourceGetMetadata = Get-Module -ListAvailable -Name Microsoft.PowerShell.PSResourceGet
+if (!$PSResourceGetMetadata) {
+    Write-Host -Object "'Microsoft.PowerShell.PSResourceGet' is not installed, now installing..."
+    Install-Module -Name Microsoft.PowerShell.PSResourceGet -RequiredVersion $PsrgPinnedVer -Force -AllowPrerelease
+}
+elseif ($PSResourceGetMetadata.Version -gt $PsrgPinnedVerShort) {
+    Write-Warning -Message "'Microsoft.PowerShell.PSResourceGet' is higher than the pinned version of '$PsrgPinnedVer'. This may cause unexpected results. Consider opening a GitHub issue at 'https://github.com/natescherer/publish-powershell-action/issues' regarding this."
+}
+elseif ($PSResourceGetMetadata.Version -lt $PsrgPinnedVerShort) {
+    Write-Host "'Microsoft.PowerShell.PSResourceGet' is less than the pinned version of '$PsrgPinnedVer'. Now updating..."
+    Install-Module -Name Microsoft.PowerShell.PSResourceGet -RequiredVersion $PsrgPinnedVer -Force -AllowPrerelease
+}
+elseif ($PSResourceGetMetadata.Version -eq $PsrgPinnedVerShort) {
+    Write-Host "'Microsoft.PowerShell.PSResourceGet' is already at pinned version of '$PsrgPinnedVer'."
+}
+else {
+    throw "Something went wrong while ensuring 'Microsoft.PowerShell.PSResourceGet' is installed. Consider opening a GitHub issue at 'https://github.com/natescherer/publish-powershell-action/issues' regarding this."
+}
+
 $FullPath = Join-Path $env:GITHUB_WORKSPACE $env:INPUT_PATH
 
 if (Test-Path -Path $FullPath -PathType Container) {
