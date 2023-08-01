@@ -37,7 +37,7 @@ jobs:
           path: tests\TestModule2
           version: 1.1.1-alpha1
           copyright: (c) YYYY John Doe. All rights reserved.
-          functionsToExportPath: test\TestModule2\public
+          functionsToExportPath: tests\TestModule2\public
       - name: Modify Test-Script1
         uses: ./
         with:
