@@ -1,8 +1,11 @@
 Describe 'Module Tests' {
-    Write-Host "GH Workspace: $env:GITHUB_WORKSPACE"
-    Write-Host "$(Get-ChildItem)"
-    $Module1Path = Join-Path $env:GITHUB_WORKSPACE "tests" "TestModule1" "TestModule1.psd1"
-    $Module2Path = Join-Path $env:GITHUB_WORKSPACE "tests" "TestModule2" "TestModule2.psd1"
+    BeforeAll {
+        Write-Host "GH Workspace: $env:GITHUB_WORKSPACE"
+        Write-Host "$(Get-ChildItem)"
+        $Module1Path = Join-Path $env:GITHUB_WORKSPACE "tests" "TestModule1" "TestModule1.psd1"
+        $Module2Path = Join-Path $env:GITHUB_WORKSPACE "tests" "TestModule2" "TestModule2.psd1"
+    }
+
     It 'version' {
         $Data = Test-ModuleManifest -Path $Module1Path
 
@@ -56,13 +59,15 @@ Describe 'Module Tests' {
 }
 
 Describe 'Script Tests' {
-    $Script1Path = Join-Path $env:GITHUB_WORKSPACE "tests" "Test-Script1" "Test-Script1.ps1"
-    $Script2Path = Join-Path $env:GITHUB_WORKSPACE "tests" "Test-Script2" "Test-Script2.ps1"
-    Write-Host "Script1 Contents"
-    Write-Host $(Get-Content $Script1Path)
-    Write-Host ""
-    Write-Host "Script2 Contents"
-    Write-Host $(Get-Content $Script2Path)
+    BeforeAll {
+        $Script1Path = Join-Path $env:GITHUB_WORKSPACE "tests" "Test-Script1" "Test-Script1.ps1"
+        $Script2Path = Join-Path $env:GITHUB_WORKSPACE "tests" "Test-Script2" "Test-Script2.ps1"
+        Write-Host "Script1 Contents"
+        Write-Host $(Get-Content $Script1Path)
+        Write-Host ""
+        Write-Host "Script2 Contents"
+        Write-Host $(Get-Content $Script2Path)
+    }
 
     It 'version' {
         $Data = Test-PSScriptFileInfo -Path $Script1Path
