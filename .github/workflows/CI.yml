@@ -25,7 +25,7 @@ jobs:
       - name: Modify TestModule1
         uses: ./
         with:
-          path: test\TestModule1\TestModule1.psd1
+          path: tests\TestModule1\TestModule1.psd1
           version: 1.1.1
           copyright: (c) 2001 John Doe. All rights reserved.
           description: This is a test module.
@@ -34,14 +34,14 @@ jobs:
       - name: Modify TestModule2
         uses: ./
         with:
-          path: test\TestModule2
+          path: tests\TestModule2
           version: 1.1.1-alpha1
           copyright: (c) YYYY John Doe. All rights reserved.
           functionsToExportPath: test\TestModule2\public
       - name: Modify Test-Script1
         uses: ./
         with:
-          path: test\Test-Script1\Test-Script1.ps1
+          path: tests\Test-Script1\Test-Script1.ps1
           version: 1.1.1
           copyright: (c) 2001 John Doe. All rights reserved.
           description: This is a test script.
@@ -49,7 +49,7 @@ jobs:
       - name: Modify Test-Script2
         uses: ./
         with:
-          path: test\Test-Script2
+          path: tests\Test-Script2
           version: 1.1.1-alpha1
           copyright: (c) YYYY John Doe. All rights reserved.
       - name: Run Pester Tests
